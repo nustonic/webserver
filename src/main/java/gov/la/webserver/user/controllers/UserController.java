@@ -1,8 +1,8 @@
-package gov.la.webserver.controllers;
-import gov.la.webserver.dto.UserDTO;
-import gov.la.webserver.dto.UserRegisterDTO;
-import gov.la.webserver.entity.User;
-import gov.la.webserver.service.UserService;
+package gov.la.webserver.user.controllers;
+import gov.la.webserver.user.dto.UserDTO;
+import gov.la.webserver.user.dto.UserRegisterDTO;
+import gov.la.webserver.user.entity.User;
+import gov.la.webserver.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -52,6 +52,10 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable final Long id) {
         UserDTO userDTO = userService.getDetail(id);
+//        if (userDTO==null){
+//            return ResponseEntity.notFound().build();
+//
+//        }
         return ResponseEntity.ok(userDTO);
     }
 

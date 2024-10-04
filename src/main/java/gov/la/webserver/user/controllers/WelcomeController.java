@@ -1,4 +1,4 @@
-package gov.la.webserver.controllers;
+package gov.la.webserver.user.controllers;
 import  org.springframework.web.bind.annotation.GetMapping;
 import  org.springframework.web.bind.annotation.RestController;
 @RestController

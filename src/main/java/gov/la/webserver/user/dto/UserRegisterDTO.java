@@ -1,4 +1,4 @@
-package gov.la.webserver.dto;
+package gov.la.webserver.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

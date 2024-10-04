@@ -1,4 +1,4 @@
-package gov.la.webserver.entity;
+package gov.la.webserver.user.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package gov.la.webserver.entity;
+package gov.la.webserver.user.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -40,6 +40,18 @@ public class UserChangeLog {
     @Column(name = "createTime")
     private LocalDateTime createTime = LocalDateTime.now();
 
+    public static UserChangeLog createUserLogEntity(String filedName,
+                                                    String beforeValue,
+                                                    String afterValue) {
 
+        final UserChangeLog changeLog = new UserChangeLog();
+
+        changeLog.setBeforeField(filedName);
+        changeLog.setBeforeValue(beforeValue);
+        changeLog.setAfterField(filedName);
+        changeLog.setAfterValue(afterValue);
+
+        return changeLog;
+    }
 
 }

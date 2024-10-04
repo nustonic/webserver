@@ -1,7 +1,7 @@
-package gov.la.webserver.service;
+package gov.la.webserver.user.service;
 
-import gov.la.webserver.dto.UserDTO;
-import gov.la.webserver.dto.UserRegisterDTO;
+import gov.la.webserver.user.dto.UserDTO;
+import gov.la.webserver.user.dto.UserRegisterDTO;
 
 import java.util.List;
 
