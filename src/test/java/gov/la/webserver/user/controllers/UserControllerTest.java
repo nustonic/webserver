@@ -1,5 +1,5 @@
-package gov.la.webserver.user.controller;
-
+package gov.la.webserver.user.controllers;
+//
 import com.google.gson.Gson;
 import gov.la.webserver.user.controllers.UserController;
 import gov.la.webserver.user.dto.UserDTO;
@@ -51,7 +51,7 @@ private UserService userService;
     }
 
     @Test
-    void getUser() {
+    void getUser() throws Exception {
         UserDTO mockUserDTO = new UserDTO(1L, "Tony Stark", 20, "Iron Man");
 
         given(userService.getDetail(1L)).willReturn(mockUserDTO);
@@ -63,11 +63,11 @@ private UserService userService;
     }
 @DisplayName(value = "user generate test")
     @Test
-    void createUser() {
+    void createUser() throws Exception {
     UserDTO mockUserDTO = new UserDTO(6L, "Peter Parker", 33, "Spider Man");
     given(userService.registerUser(any(UserRegisterDTO.class))).willReturn(mockUserDTO);
 
-    final String request = new Gson().toJson(new UserRegisterDTO("Peter Parker", 16, "Spider Man"));
+    final String request = new Gson().toJson(new UserRegisterDTO("park",18,"boston"));
 
     mockMvc.perform(
                     post("/api/v1/users")
@@ -82,9 +82,25 @@ private UserService userService;
     }
     @DisplayName(value = "Test modifying user nickname")
     @Test
-    void updateUser() {
-    }
+    void updateUser() throws Exception {
+        // TODO Homework
+        final Long mockUserId = 1L;
+        UserDTO mockUserDTO = new UserDTO(mockUserId, "Peter Parker", 33, "Spider Man");
+        given(userService.updateUser(any(Long.class), any(UserDTO.class)))
+                .willReturn(mockUserDTO);
 
+        final String request = new Gson().toJson(mockUserDTO);
+        mockMvc.perform(
+                        put("/api/v1/users/" + mockUserId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(request)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(mockUserId))
+                .andExpect(jsonPath("$.nickName").value("Spider Man"))
+        ;
+    }
     @DisplayName("Test deleting users")
     @Test
     void deleteUser() throws Exception {

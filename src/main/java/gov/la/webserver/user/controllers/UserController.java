@@ -11,17 +11,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Tag(name = "User API", description = "User API")
 @RestController
 @RequestMapping("api/v1/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     @Operation(
             summary = "get All api user",
@@ -34,6 +41,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUser() {
 //        List<User> userList = userRepository.findAll();
+        log.info("call getAllUsers");
         List<UserDTO> userList = userService.findAllUsers();
         return ResponseEntity.ok(userList);
     }
@@ -51,6 +59,7 @@ public class UserController {
     )
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable final Long id) {
+        log.info("call getUsers >>> {}",id);
         UserDTO userDTO = userService.getDetail(id);
 //        if (userDTO==null){
 //            return ResponseEntity.notFound().build();
@@ -74,8 +83,10 @@ public class UserController {
             description = "Success"
     )
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody final UserRegisterDTO userRegisterDTO) {
-        UserDTO userDTO =userService.registerUser(userRegisterDTO);
+    public ResponseEntity<UserDTO> createUser(@RequestBody final UserRegisterDTO user) {
+        log.info("call createUsers >>> namne >> {} / age >> {} /nickname >>{}"
+                ,user.getName(), user.getAge(), user.getNickname());
+        UserDTO userDTO =userService.registerUser(user);
         return ResponseEntity.ok(userDTO);
     }
 
@@ -95,8 +106,9 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable final Long id, @RequestBody final UserDTO user) {
-       UserDTO resUserDTO = userService.updateUser(id, user);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable final Long id, @RequestBody final UserDTO userDTO) {
+        log.info("call UpdatedUsers >>>id >>> {}/ namne >> {} / age >> {} /nickname >>{}",id, userDTO.getName(), userDTO.getAge(), userDTO.getNickName());
+       UserDTO resUserDTO = userService.updateUser(id, userDTO);
        if(resUserDTO ==null) {
            return ResponseEntity.notFound().build();
        }else {
@@ -122,6 +134,7 @@ public class UserController {
     @Parameter(name = "id", description = "id", example = "1",required = true)
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable final Long id) {
+        log.info("call DeleteUser >>> id >>> {}",id);
         Boolean isDeleted = userService.deleteUser(id);
         return ResponseEntity.ok(isDeleted);
     }
