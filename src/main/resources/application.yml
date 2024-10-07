@@ -22,4 +22,23 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
         show_sql: true
-    open-in-view: false
+    open-in-view: true
+
+
+#spring boot admin setting
+
+  boot:
+    admin.client.url: http://localhost:8000
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always
+  info.evn.enabled: true
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    name: "C:/nust/webserver/logs/LaGovApplication.log"
