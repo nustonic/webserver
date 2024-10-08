@@ -44,12 +44,24 @@ public class User {
 //    @Schema(name = "nickName",
 //            description = "user nickName", example = "SuperMan")
     private String nickName;
+    @Embedded
+    private Account account;
+
 
     public User(final  String name, final Integer age, final String nickName){
         this.name= name;
         this.age= age;
         this.nickName= nickName;
 
+    }
+
+    public User(String name,
+                Integer age,
+                String nickName,
+                Account account) {
+        this(name, age,nickName);
+
+        this.account = account;
     }
 
     public void changeName(String name) {
@@ -62,5 +74,12 @@ public class User {
 
     public void changeAge(Integer age) {
         this.age=age;
+    }
+    public static User createUserWithAccount(final String name,
+                                             final Integer age,
+                                             final String nickName,
+                                             final String username,
+                                             final String password){
+        return new User(name,age,nickName,Account.create(username,password));
     }
 }
