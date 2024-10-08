@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>S.H.I.E.L.D.</title>
+    <style>
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 25%;
+        }
+        button {
+        color: white;
+        background-color: #3A3C42;
+
+        border-radius: 20px;
+        font-size: 14px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        }
+          <!--        background-color: #1A6EC3;-->
+    </style>
+    <script>
+        function click_logout() {
+            location.replace("/logout");
+        }
+    </script>
+</head>
+<body>
+<img th:src="logo1.png" class="center" alt="logo"></img>
+<h1 th:text="${data}" align="center"></h1>
+<button type="button" onclick="click_logout()" class="center">Logout</button>
+</body>
+</html>

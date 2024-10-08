@@ -24,6 +24,9 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.11.0'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'de.codecentric:spring-boot-admin-starter-client:3.3.4'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 	// for h2 Database
 	runtimeOnly 'com.h2database:h2'
