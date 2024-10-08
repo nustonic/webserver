@@ -1,10 +1,10 @@
 package gov.la.webserver.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
 
 @Schema(description = "user Register DTO")
 @Data
@@ -16,6 +16,10 @@ public class UserRegisterDTO {
     private Integer age;
     @Schema(name = "nickname", description = "user nickname", example = "iran")
     private String nickname;
+    @Schema(name = "username", description = "username", example = "iran")
+    private String username;
+    @Schema(name = "password", description = "password", example = "ira455n")
+    private String password;
 
 
 }

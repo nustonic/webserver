@@ -76,7 +76,9 @@ public class UserController {
             @Parameter(name = "id", description = "indentifier", example = "1", required = true),
             @Parameter(name = "name", description = "user name", example = "javis", required = true),
             @Parameter(name = "age", description = "age user", example = "41", required = true),
-            @Parameter(name = "nickName", description = "nickname", example = "SOLO", required = true)
+            @Parameter(name = "nickName", description = "nickname", example = "SOLO", required = true),
+            @Parameter(name = "userName", description = "userName", example = "SOLO", required = true),
+            @Parameter(name = "password", description = "password", example = "SO1445LO", required = true)
     })
     @ApiResponse(
             responseCode = "200",

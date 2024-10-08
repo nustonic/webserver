@@ -23,83 +23,27 @@ public class UserDTO {
 
     @Schema(name = "nickName", description = "nickName", example = "Tony Stark")
     private String nickName;
+    @Schema(name = "username", description = "username", example = "Tony Stark")
+    private String username;
 
-
-    public UserDTO(final  String name, final Integer age, final String nickName){
-        this.name= name;
-        this.age= age;
-        this.nickName= nickName;
-
-    }
+//    public UserDTO(final  String name, final Integer age, final String nickName){
+//        this.name= name;
+//        this.age= age;
+//        this.nickName= nickName;
+//        this.username=getUsername();
+//
+//
+//    }
 
     public UserDTO(final User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.age = user.getAge();
         this.nickName = user.getNickName();
+        this.username = user.getAccount().getUsername();
 
 
     }
-//
-//
-//
-//    public UserChangeLog checkNickNameChange(User savedUser) {
-//
-//        final String nickName = this.nickName;
-//        final String savedNickName = savedUser.getNickName();
-//
-//        if (!nickName.equals(savedNickName)) {
-//            final UserChangeLog nickChangeLog = new UserChangeLog();
-//
-//            nickChangeLog.setBeforeField("nickName");
-//            nickChangeLog.setBeforeValue(savedNickName);
-//            nickChangeLog.setAfterField("nickName");
-//            nickChangeLog.setAfterValue(nickName);
-//
-//            return nickChangeLog;
-//        }
-//
-//        return null;
-//    }
-//
-//    public UserChangeLog checkNameChange(User savedUser) {
-//
-//        final String name = this.name;
-//        final String savedName = savedUser.getName();
-//
-//        if (!name.equals(savedName)) {
-//            final UserChangeLog nameChangeLog = new UserChangeLog();
-//
-//            nameChangeLog.setBeforeField("name");
-//            nameChangeLog.setBeforeValue(savedName);
-//            nameChangeLog.setAfterField("name");
-//            nameChangeLog.setAfterValue(name);
-//
-//            return nameChangeLog;
-//        }
-//
-//        return null;
-//    }
-//
-//    public UserChangeLog checkAgeChange(User savedUser) {
-//
-//        final Integer age = this.age;
-//        final Integer savedAge = savedUser.getAge();
-//
-//        if (!age.equals(savedAge)) {
-//            final UserChangeLog ageChangeLog = new UserChangeLog();
-//
-//            ageChangeLog.setBeforeField("age");
-//            ageChangeLog.setBeforeValue(savedAge.toString());
-//            ageChangeLog.setAfterField("age");
-//            ageChangeLog.setAfterValue(age.toString());
-//
-//            return ageChangeLog;
-//        }
-//
-//        return null;
-//    }
-
     public UserChangeLog checkNickNameChange(final String savedNickName) {
 
         final String nickName = this.nickName;

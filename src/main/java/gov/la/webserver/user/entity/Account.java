@@ -2,7 +2,7 @@ package gov.la.webserver.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +18,6 @@ public class Account {
     private  String password;
 
     public  static Account create(final String username,final String password){
-        return new Account(username,password);
+        return new Account(username, password);
     }
 }
