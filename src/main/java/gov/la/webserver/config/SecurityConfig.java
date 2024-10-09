@@ -1,10 +1,14 @@
 package gov.la.webserver.config;
 
+import gov.la.webserver.user.service.UserLoginService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.HeadersDsl;
+
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,9 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-
+@EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true)
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+    final UserLoginService userLoginService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -23,6 +30,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(withDefaults())
                 .formLogin(e->e.successForwardUrl("/main"))
+                .userDetailsService(userLoginService)
                 .authorizeHttpRequests(authorizeRequest->{
                     authorizeRequest
                             .requestMatchers(AntPathRequestMatcher.antMatcher("/main/logout")).permitAll()

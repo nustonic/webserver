@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class UserController {
             responseCode = "200",
             description = "Success"
     )
+    @Secured("ROLE_ADMIN")
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUser() {
 //        List<User> userList = userRepository.findAll();

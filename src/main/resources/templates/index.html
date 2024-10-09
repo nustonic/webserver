@@ -30,9 +30,24 @@
         }
     </script>
 </head>
-<body>
+<body onload="search()">
+<script>
+    function search() {
+        fetch('/api/v1/users')
+            .then(response => response.json())  // Parsing server responses into JSON format
+            .then(data => {
+                const heroes = data.map(hero => hero.nickName).join(', ');
+                document.getElementById("avengers").innerText = "Avengers : " + heroes;
+            })
+            .catch(error => {
+                console.error('Error:', error);  // print error
+            });
+    }
+</script>
+
 <img th:src="logo1.png" class="center" alt="logo"></img>
 <h1 th:text="${data}" align="center"></h1>
 <button type="button" onclick="click_logout()" class="center">Logout</button>
+<p id="avengers" align="center"></p>
 </body>
 </html>

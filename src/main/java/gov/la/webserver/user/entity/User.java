@@ -36,11 +36,15 @@ public class User {
     @Embedded
     private Account account;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
     public User(final  String name, final Integer age, final String nickName){
         this.name= name;
         this.age= age;
         this.nickName= nickName;
+        this.role=Role.USER;
     }
 
     public User(String name,
