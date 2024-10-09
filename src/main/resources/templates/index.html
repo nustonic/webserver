@@ -42,12 +42,48 @@
             .catch(error => {
                 console.error('Error:', error);  // print error
             });
+
+        fetch('/api/v1/user-change-logs')
+            .then(response => response.json())  // Parsing server responses into JSON format
+            .then(data => {
+                jsonToTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);  // print error
+            });
+
+    }
+
+     function jsonToTable(json) {
+        const table = document.getElementById("log-table");
+
+        // Create table header
+        const headers = Object.keys(json[0]);
+        let headerRow = '<tr>';
+        headers.forEach(header => {
+            headerRow += `<th>${header}</th>`;
+        });
+        headerRow += '</tr>';
+        table.innerHTML += headerRow;
+
+        // Create table rows
+        json.forEach(item => {
+            let row = '<tr>';
+            headers.forEach(header => {
+                row += `<td>${item[header]}</td>`;
+            });
+            row += '</tr>';
+            table.innerHTML += row;
+        });
     }
 </script>
 
-<img th:src="logo1.png" class="center" alt="logo"></img>
+<img th:src="logo.png" class="center" alt="logo"></img>
 <h1 th:text="${data}" align="center"></h1>
 <button type="button" onclick="click_logout()" class="center">Logout</button>
 <p id="avengers" align="center"></p>
+
+<table id="log-table" class="center" ></table>
+
 </body>
 </html>

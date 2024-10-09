@@ -1,11 +1,18 @@
 package gov.la.webserver.user.service.impl;
 
+import gov.la.webserver.user.dto.UserChangeLogDTO;
 import gov.la.webserver.user.dto.UserDTO;
 import gov.la.webserver.user.entity.UserChangeLog;
 import gov.la.webserver.user.repository.UserChangeLogRepository;
 import gov.la.webserver.user.service.UserChangeLogService;
+import io.micrometer.observation.ObservationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +59,14 @@ public class UserChangeLogServiceImpl implements UserChangeLogService {
         }
 
         return Boolean.FALSE;
+    }
+
+    @Override
+    public List<UserChangeLogDTO> getAllUserChangeLog() {
+        return userChangeLogRepository.findAll()
+        .stream().map(UserChangeLogDTO::new)
+                .collect(Collectors.toList());
+
     }
 
 

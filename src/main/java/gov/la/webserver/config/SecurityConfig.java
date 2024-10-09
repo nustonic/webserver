@@ -1,5 +1,6 @@
 package gov.la.webserver.config;
 
+import gov.la.webserver.user.entity.Role;
 import gov.la.webserver.user.service.UserLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,11 +34,12 @@ public class SecurityConfig {
                 .userDetailsService(userLoginService)
                 .authorizeHttpRequests(authorizeRequest->{
                     authorizeRequest
-                            .requestMatchers(AntPathRequestMatcher.antMatcher("/main/logout")).permitAll()
-                            .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                            .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**")).permitAll()
-                            .requestMatchers(AntPathRequestMatcher.antMatcher("/v3/api-docs/**")).permitAll()
-                            .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/users/**")).permitAll()
+                            .requestMatchers("/main/logout").permitAll()
+                            .requestMatchers("/h2-console/**").permitAll()
+                            .requestMatchers("/swagger-ui/**").permitAll()
+                            .requestMatchers("/v3/api-docs/**").permitAll()
+//                            .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/users/**")).permitAll()
+                            .requestMatchers("/api/v1/user-change-logs/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
                 .logout((logout)->{
