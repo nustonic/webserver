@@ -1,5 +1,6 @@
 package gov.la.webserver.user.controllers;
 
+import gov.la.webserver.common.response.dto.ApiResponseDTO;
 import gov.la.webserver.user.dto.UserChangeLogDTO;
 import gov.la.webserver.user.service.UserChangeLogService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,11 +10,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -37,11 +38,16 @@ public class UserChangeLogController {
     )
     @Secured("ROLE_ADMIN")
     @GetMapping
-    public ResponseEntity<List<UserChangeLogDTO>>getAllUserChangeLogs() {
+    public Flux<ApiResponseDTO<Object>> getAllUserChangeLogs() {
 
         log.info("call getAllUsersChangelog");
         List<UserChangeLogDTO> userChangLogs = userChangeLogService.getAllUserChangeLog();
-        return ResponseEntity.ok(userChangLogs);
+        return Flux.fromIterable(userChangLogs)
+                .map(log -> ApiResponseDTO.builder()
+                        .code(200)
+                        .message("Find All User ChangeLog")
+                        .body(log)
+                        .build());
     }
 
 
