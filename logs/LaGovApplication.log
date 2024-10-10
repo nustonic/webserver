@@ -2448,3 +2448,5 @@ Caused by: java.lang.IllegalStateException: Encountered invalid @Scheduled metho
 2024-10-10 16:53:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
 2024-10-10 16:53:07 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
 2024-10-10 16:53:07 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-10 16:54:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-10 16:54:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
