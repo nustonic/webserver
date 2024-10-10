@@ -4,6 +4,7 @@ import gov.la.webserver.user.dto.UserDTO;
 import gov.la.webserver.user.dto.UserRegisterDTO;
 
 import gov.la.webserver.user.entity.User;
+import gov.la.webserver.user.event.UserChangeLogEvent;
 import gov.la.webserver.user.repository.UserRepository;
 
 import gov.la.webserver.user.service.UserChangeLogService;
@@ -12,6 +13,8 @@ import gov.la.webserver.user.service.exception.UserNotFoundException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserChangeLogService userChangeLogService;
     private final PasswordEncoder passwordEncoder;
-
+    private final ApplicationEventPublisher publisher;
     @Override
     public List<UserDTO> findAllUsers() {
         return userRepository.findAll()
@@ -67,10 +70,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO updateUser(Long id, UserDTO userDTO) {
 
-        User savedUser = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userChangeLogService.createLogUserNickName(userDTO, savedUser.getNickName());
-        userChangeLogService.createLogUserName(userDTO, savedUser.getName());
-        userChangeLogService.createLogUserAge(userDTO, savedUser.getAge());
+        User savedUser = userRepository
+                .findById(id)
+                .orElseThrow(UserNotFoundException::new);
+//
+
+        publisher.publishEvent(new UserChangeLogEvent(userDTO,savedUser));
 
         savedUser.changeNickName(userDTO.getNickName());
         savedUser.changeName(userDTO.getName());

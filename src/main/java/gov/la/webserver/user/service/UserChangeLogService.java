@@ -12,5 +12,7 @@ public interface UserChangeLogService {
 
     List<UserChangeLogDTO> getAllUserChangeLog();
 
+    Boolean clearAllUserLogs();
+
 
 }

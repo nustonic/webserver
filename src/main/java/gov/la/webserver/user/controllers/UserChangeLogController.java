@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -38,18 +39,27 @@ public class UserChangeLogController {
     )
     @Secured("ROLE_ADMIN")
     @GetMapping
-    public Flux<ApiResponseDTO<Object>> getAllUserChangeLogs() {
+//    public Flux<ApiResponseDTO<Object>> getAllUserChangeLogs() {
+//
+//        log.info("call getAllUsersChangelog");
+//        List<UserChangeLogDTO> userChangLogs = userChangeLogService.getAllUserChangeLog();
+//        return Flux.fromIterable(userChangLogs)
+//                .map(log -> ApiResponseDTO.builder()
+//                        .code(200)
+//                        .message("Find All User ChangeLog")
+//                        .body(log)
+//                        .build());
+//    }
+
+    public Mono<ApiResponseDTO<Object>> getAllUserChangeLogs() {
 
         log.info("call getAllUsersChangelog");
         List<UserChangeLogDTO> userChangLogs = userChangeLogService.getAllUserChangeLog();
-        return Flux.fromIterable(userChangLogs)
-                .map(log -> ApiResponseDTO.builder()
+        return Mono.just(ApiResponseDTO.builder()
                         .code(200)
                         .message("Find All User ChangeLog")
-                        .body(log)
+                        .body(userChangLogs)
                         .build());
     }
-
-
 }
 

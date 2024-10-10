@@ -69,5 +69,11 @@ public class UserChangeLogServiceImpl implements UserChangeLogService {
 
     }
 
+    @Override
+    public Boolean clearAllUserLogs() {
+        userChangeLogRepository.deleteAll();
+        return Boolean.TRUE;
+    }
+
 
 }
