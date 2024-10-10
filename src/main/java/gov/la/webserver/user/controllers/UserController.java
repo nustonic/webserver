@@ -1,4 +1,6 @@
 package gov.la.webserver.user.controllers;
+
+import gov.la.webserver.common.response.dto.ApiResponseDTO;
 import gov.la.webserver.user.dto.UserDTO;
 import gov.la.webserver.user.dto.UserRegisterDTO;
 import gov.la.webserver.user.entity.User;
@@ -15,9 +17,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class UserController {
     @Operation(
             summary = "get All api user",
             description = "Query all users",
-            security= @SecurityRequirement(name = "basicScheme")
+            security = @SecurityRequirement(name = "basicScheme")
     )
     @ApiResponse(
             responseCode = "200",
@@ -43,11 +46,15 @@ public class UserController {
     )
     @Secured("ROLE_ADMIN")
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUser() {
-//        List<User> userList = userRepository.findAll();
+    public Flux<ApiResponseDTO<Object>> getAllUser() {
         log.info("call getAllUsers");
         List<UserDTO> userList = userService.findAllUsers();
-        return ResponseEntity.ok(userList);
+        return Flux.fromIterable(userList)
+                .map(user -> ApiResponseDTO.builder()
+                        .code(200)
+                        .message("User List Found")
+                        .body(user)
+                        .build());
     }
 
     @Operation(
@@ -62,14 +69,16 @@ public class UserController {
             description = "Success"
     )
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable final Long id) {
-        log.info("call getUsers >>> {}",id);
+    public Mono<ApiResponseDTO<Object>> getUser(@PathVariable final Long id) {
+        log.info("call getUsers >>> {}", id);
         UserDTO userDTO = userService.getDetail(id);
-//        if (userDTO==null){
-//            return ResponseEntity.notFound().build();
-//
-//        }
-        return ResponseEntity.ok(userDTO);
+
+        return Mono.justOrEmpty(userDTO)
+                .map(user -> ApiResponseDTO.builder()
+                        .code(200)
+                        .message("Find User")
+                        .body(user)
+                        .build());
     }
 
     @Operation(
@@ -89,11 +98,15 @@ public class UserController {
             description = "Success"
     )
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody final UserRegisterDTO user) {
-        log.info("call createUsers >>> namne >> {} / age >> {} /nickname >>{}"
-                ,user.getName(), user.getAge(), user.getNickname());
-        UserDTO userDTO =userService.registerUser(user);
-        return ResponseEntity.ok(userDTO);
+    public Mono<ApiResponseDTO<Object>> createUser(@RequestBody final UserRegisterDTO user) {
+        log.info("call createUsers >>> name >> {} / age >> {} /nickname >>{}"
+                , user.getName(), user.getAge(), user.getNickname());
+        UserDTO userDTO = userService.registerUser(user);
+        return Mono.justOrEmpty(ApiResponseDTO.builder()
+                .code(200)
+                .message("Created User")
+                .body(userDTO)
+                .build());
     }
 
     @Operation(
@@ -106,21 +119,26 @@ public class UserController {
     @ApiResponse(
             responseCode = "200",
             description = "Success",
-            content={
-                    @Content(mediaType = "application/json",schema = @Schema(implementation = User.class))}
+            content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}
     )
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable final Long id, @RequestBody final UserDTO userDTO) {
-        log.info("call UpdatedUsers >>>id >>> {}/ namne >> {} / age >> {} /nickname >>{}",id, userDTO.getName(), userDTO.getAge(), userDTO.getNickName());
-       UserDTO resUserDTO = userService.updateUser(id, userDTO);
-       if(resUserDTO ==null) {
-           return ResponseEntity.notFound().build();
-       }else {
-           return ResponseEntity.ok(resUserDTO);
-//
-       }
+    public Mono<ApiResponseDTO<Object>> updateUser(@PathVariable final Long id, @RequestBody final UserDTO userDTO) {
+        log.info("call UpdatedUsers >>>id >>> {}/ name >> {} / age >> {} /nickname >>{}", id, userDTO.getName(), userDTO.getAge(), userDTO.getNickName());
+        UserDTO resUserDTO = userService.updateUser(id, userDTO);
+
+        return Mono.justOrEmpty(ApiResponseDTO.builder()
+                .code(200)
+                .message("Updated User")
+                .body(resUserDTO).build())
+        .switchIfEmpty(
+                        Mono.just(
+                                ApiResponseDTO.builder()
+                                        .code(404)
+                                        .message("User Not Found")
+                                        .build()));
 
     }
 
@@ -134,15 +152,19 @@ public class UserController {
     @ApiResponse(
             responseCode = "200",
             description = "Success",
-            content={
-                    @Content(mediaType = "application/json",schema = @Schema(implementation = User.class))}
+            content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}
     )
-    @Parameter(name = "id", description = "id", example = "1",required = true)
+    @Parameter(name = "id", description = "id", example = "1", required = true)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteUser(@PathVariable final Long id) {
-        log.info("call DeleteUser >>> id >>> {}",id);
+    public Mono<ApiResponseDTO<Object>> deleteUser(@PathVariable final Long id) {
+        log.info("call DeleteUser >>> id >>> {}", id);
         Boolean isDeleted = userService.deleteUser(id);
-        return ResponseEntity.ok(isDeleted);
+        return Mono.just(ApiResponseDTO.builder()
+                .code(200)
+                .message("Deleted User")
+                .body(isDeleted)
+                .build());
     }
 
 
