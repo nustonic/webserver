@@ -42,3 +42,6 @@ logging:
   config: classpath:logback-spring.xml
   file:
     name: "C:/nust/webserver/logs/LaGovApplication.log"
+
+server:
+  port: 5000

@@ -36,7 +36,8 @@
         fetch('/api/v1/users')
             .then(response => response.json())  // Parsing server responses into JSON format
             .then(data => {
-                const heroes = data.map(hero => hero.nickName).join(', ');
+<!--                console.log("data >>> ", data);-->
+                const heroes = data.map(hero => hero.body.nickName).join(', ');
                 document.getElementById("avengers").innerText = "Avengers : " + heroes;
             })
             .catch(error => {
