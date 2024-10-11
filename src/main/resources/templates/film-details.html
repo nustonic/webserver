@@ -1,0 +1,25 @@
+<h1 th:text="${film.title}"></h1>
+<p th:text="${film.description}"></p>
+<p>Directed by: <span th:text="${film.director}"></span></p>
+<p>Genre: <span th:text="${film.genre}"></span></p>
+<p>Year: <span th:text="${film.year}"></span></p>
+
+<h2>Reviews</h2>
+<ul>
+    <li th:each="review : ${reviews}">
+        <strong th:text="${review.reviewerName}"></strong> rated
+        <span th:text="${review.rating}"></span> stars
+        <p th:text="${review.content}"></p>
+    </li>
+</ul>
+
+<h2>Add Review</h2>
+<form th:action="@{/films/{id}/review(id=${film.id})}" th:object="${newReview}" method="post">
+    <label>Name:</label>
+    <input type="text" th:field="*{reviewerName}" />
+    <label>Rating (1-5):</label>
+    <input type="number" th:field="*{rating}" min="1" max="5" />
+    <label>Review:</label>
+    <textarea th:field="*{content}"></textarea>
+    <button type="submit">Submit Review</button>
+</form>

@@ -45,3 +45,4 @@ logging:
 
 server:
   port: 5000
+

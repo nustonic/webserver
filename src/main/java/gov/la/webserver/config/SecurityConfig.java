@@ -38,6 +38,8 @@ public class SecurityConfig {
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/swagger-ui/**").permitAll()
                             .requestMatchers("/v3/api-docs/**").permitAll()
+//                            .requestMatchers("/api/v1/films/**").permitAll()
+//                            .requestMatchers("/api/v1/reviews/**").permitAll()
 //                            .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/users/**")).permitAll()
                             .requestMatchers("/api/v1/user-change-logs/**").hasRole("ADMIN")
                             .anyRequest().authenticated();

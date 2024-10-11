@@ -1,0 +1,14 @@
+<h1 xmlns:th="http://www.w3.org/1999/xhtml">Add/Edit Film</h1>
+<form th:action="@{/admin/films/add}" th:object="${film}" method="post">
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" />
+    <label>Description:</label>
+    <textarea th:field="*{description}"></textarea>
+    <label>Director:</label>
+    <input type="text" th:field="*{director}" />
+    <label>Genre:</label>
+    <input type="text" th:field="*{genre}" />
+    <label>Year:</label>
+    <input type="number" th:field="*{year}" />
+    <button type="submit">Save</button>
+</form>
