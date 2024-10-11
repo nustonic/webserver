@@ -19764,3 +19764,82 @@ select ucl1_0.id,ucl1_0.after_field,ucl1_0.after_value,ucl1_0.before_field,ucl1_
 2024-10-11 16:28:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
 2024-10-11 16:28:30 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=spring-boot-application, managementUrl=http://host.docker.internal:5000/actuator, healthUrl=http://host.docker.internal:5000/actuator/health, serviceUrl=http://host.docker.internal:5000/) at spring-boot-admin ([http://localhost:8000/instances]): I/O error on POST request for "http://localhost:8000/instances": Connection refused: no further information. Further attempts are logged on DEBUG level
 2024-10-11 16:28:30 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:29:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:29:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:29:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:29:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:30:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:30:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:30:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:30:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:31:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:31:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:31:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:31:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:32:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:32:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:32:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:32:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:33:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:33:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:33:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:33:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:34:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:34:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:34:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:34:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:35:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:35:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:35:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:35:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:36:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:36:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:36:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:36:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:37:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:37:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:37:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:37:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:41:55 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m27s500ms748µs200ns).
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:41:57 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:42:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:42:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:42:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:42:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:43:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:43:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:43:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:43:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:44:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:44:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:44:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:44:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:45:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:45:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:45:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:45:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:46:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:46:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:46:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:46:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:47:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:47:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:47:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:47:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:48:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:48:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:48:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:48:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
+2024-10-11 16:49:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call checkChangeLog
+2024-10-11 16:49:00 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - check log completed!!
+2024-10-11 16:49:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - call clearChangeLog
+2024-10-11 16:49:29 [scheduling-1] INFO  g.l.w.u.s.UserChangeLogScheduler - clear Logs completed!! true
