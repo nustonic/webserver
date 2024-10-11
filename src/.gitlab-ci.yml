@@ -1,0 +1,64 @@
+# .gitlab-ci.yml
+variables:
+  AUTO_DEVOPS_PLATFORM_TARGET: EC2
+  REGISTRY_URL: registry.gitlab.com
+
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+cache:
+  key: '$CI_COMMIT_REF_NAME'
+  paths:
+    - .gradle/
+
+
+before_script:
+  - export GRADLE_USER_HOME=pwd/.gradle
+
+stages:
+  - build
+  - release
+  - deploy
+
+build-ebt:
+  stage: build
+  image: gradle:jdk17
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y zip
+  script:
+    - gradle clean bootJar
+    - mkdir -p deploy_package
+    - cp build/libs/*.jar deploy_package/application.jar
+    - cd deploy_package
+    - zip -r ../application.zip .
+    - cd ..
+    - ls -la  # 생성된 파일 확인
+  artifacts:
+    paths:
+      - application.zip
+    expire_in: 1 week
+  only:
+    - main
+
+deploy-ebt:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - echo "Printing all GitLab CI variables:"
+    - env | sort
+
+    - aws configure list
+    - aws s3 cp application.zip s3://$S3_BUCKET/$CI_PIPELINE_ID.zip
+
+    - aws elasticbeanstalk create-application-version
+      --application-name $EB_APP_NAME
+      --version-label $CI_PIPELINE_ID
+      --source-bundle S3Bucket=$S3_BUCKET,S3Key=$CI_PIPELINE_ID.zip
+
+    - aws elasticbeanstalk update-environment
+      --environment-name $EB_ENV_NAME
+      --version-label $CI_PIPELINE_ID
+
+  only:
+    - main
