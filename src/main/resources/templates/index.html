@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.H.I.E.L.D.</title>
+    <title>S.H.I.E.L.D. - Films Update</title>
     <style>
+        /* Styles same as provided */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -13,6 +14,12 @@
         }
 
         .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        .center-img-btn {
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -75,35 +82,11 @@
             location.replace("/logout");
         }
 
+        // Fetch all films on page load
         function search() {
-            // Fetch users
-            fetch('/api/v1/users')
+            fetch('/api/v1/films')  // Changed endpoint to fetch all films
                 .then(response => response.json())
                 .then(data => {
-                    const heroes = data.map(hero => hero.body.nickName).join(', ');
-                    document.getElementById("avengers").innerText = "Avengers: " + heroes;
-                })
-                .catch(error => {
-                    console.error('Error fetching users:', error);
-                    alert('An error occurred while fetching the Avengers.');
-                });
-
-            // Fetch user change logs
-            fetch('/api/v1/user-change-logs')
-                .then(response => response.json())
-                .then(data => {
-                    jsonToTable(data, 'log-table');
-                })
-                .catch(error => {
-                    console.error('Error fetching user change logs:', error);
-                    alert('An error occurred while fetching user change logs.');
-                });
-
-            // Fetch films
-            fetch('/api/v1/films')
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Films data:', data);  // Log the films data
                     displayFilms(data);
                 })
                 .catch(error => {
@@ -112,36 +95,13 @@
                 });
         }
 
-        function jsonToTable(json, tableId) {
-            const table = document.getElementById(tableId);
-            table.innerHTML = ''; // Clear previous content
-
-            // Create table header
-            const headers = Object.keys(json[0]);
-            let headerRow = '<tr>';
-            headers.forEach(header => {
-                headerRow += `<th>${header}</th>`;
-            });
-            headerRow += '</tr>';
-            table.innerHTML += headerRow;
-
-            // Create table rows
-            json.forEach(item => {
-                let row = '<tr>';
-                headers.forEach(header => {
-                    row += `<td>${item[header]}</td>`;
-                });
-                row += '</tr>';
-                table.innerHTML += row;
-            });
-        }
-
+        // Function to display films in the table
         async function displayFilms(films) {
             const filmTable = document.getElementById("film-table");
             filmTable.innerHTML = ''; // Clear previous content
 
             // Create table header
-            const filmHeaders = ['Image', 'Title', 'Description', 'Director', 'Release Date', 'Reviews'];
+            const filmHeaders = ['Image', 'Title', 'Description', 'Director', 'Release Date', 'Reviews', 'Actions'];
             let filmHeaderRow = '<tr>';
             filmHeaders.forEach(header => {
                 filmHeaderRow += `<th>${header}</th>`;
@@ -151,26 +111,19 @@
 
             // Create table rows
             for (const film of films) {
-                const filmData = film.body; // Accessing the body of the film
+                const filmData = film.body;
                 let row = '<tr>';
-                // Add image
-                // const imgPath = filmData.img_path || ''; // Use the imagePath from the film data
-                row += `<td><img th:src="${filmData.img_path}" alt="${filmData.title} image" style="width: 100px; height: auto;"></td>`; // Display image with fixed width
-
-
-                // Ensure properties exist to avoid undefined
+                row += `<td><img src="${filmData.imgPath}" alt="${filmData.title} image" style="width: 100px; height: auto;"></td>`;
                 row += `<td>${filmData.title || 'N/A'}</td>`;
                 row += `<td>${filmData.description || 'N/A'}</td>`;
                 row += `<td>${filmData.director || 'N/A'}</td>`;
                 row += `<td>${filmData.releaseDate || 'N/A'}</td>`;
 
+                // Fetch and display reviews for the film
                 try {
-                    console.log();
-                    // Fetch reviews for the film
-                    const reviewsResponse = await fetch(`/api/v1/films/${film.id}/reviews`); // Assuming film.id exists
+                    const reviewsResponse = await fetch(`/api/v1/films/${film.id}/reviews`);
                     if (!reviewsResponse.ok) throw new Error('Network response was not ok');
                     const reviews = await reviewsResponse.json();
-
                     const reviewTexts = reviews.map(review => `${review.reviewText} - Rating: ${review.rating}`).join('<br>');
                     row += `<td>${reviewTexts.length > 0 ? reviewTexts : 'No reviews available'}</td>`;
                 } catch (error) {
@@ -178,27 +131,48 @@
                     row += `<td>No reviews available</td>`;
                 }
 
+                // Add actions (e.g., edit and delete buttons)
+                row += `<td>
+                          <button onclick="editFilm(${film.id})">Edit</button>
+                          <button onclick="deleteFilm(${film.id})">Delete</button>
+                        </td>`;
+
                 row += '</tr>';
-                filmTable.innerHTML += row; // Append the row to the table
+                filmTable.innerHTML += row;
+            }
+        }
+
+        // Edit Film
+        function editFilm(filmId) {
+            // Redirect to the edit page or open a modal
+            window.location.href = `/films/edit/${filmId}`;
+        }
+
+        // Delete Film
+        function deleteFilm(filmId) {
+            if (confirm('Are you sure you want to delete this film?')) {
+                fetch(`/api/v1/films/${filmId}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Film deleted successfully.');
+                            search(); // Reload films
+                        } else {
+                            alert('Failed to delete film.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting film:', error);
+                    });
             }
         }
     </script>
 </head>
 <body onload="search()">
-<img th:src="logo.png" class="center" alt="S.H.I.E.L.D. Logo">
-<h1 th:text="${data}"></h1>
-<button type="button" onclick="click_logout()" class="center">Logout</button>
-<p id="avengers" align="center"></p>
-
-<!--<h2 align="center">User Change Logs</h2>-->
-<!--<table id="log-table" class="center">-->
-<!--    <thead>-->
-<!--    &lt;!&ndash; Table header will be populated by jsonToTable function &ndash;&gt;-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    &lt;!&ndash; Table rows will be populated by jsonToTable function &ndash;&gt;-->
-<!--    </tbody>-->
-<!--</table>-->
+<img src="logo.png" class="center-img-btn" alt="S.H.I.E.L.D. Logo">
+<h1>All Films</h1>
+<button type="button" onclick="click_logout()" class="center-img-btn">Logout</button>
 
 <h2 align="center">Films</h2>
 <table id="film-table" class="center">
